@@ -16,6 +16,12 @@ const io = socketIo(server, {
   },
 });
 
+// Add these headers to your HTTPS server
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'camera=*, microphone=*');
+  res.setHeader('Feature-Policy', 'camera *; microphone *');
+  next();
+});
 // Middleware
 app.use(cors((origin = "https://livefunstream.netlify.app/")));
 app.use(express.json());
